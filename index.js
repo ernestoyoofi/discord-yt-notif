@@ -57,13 +57,11 @@ async function running() {
     writeFiles(yt_options.yt_id)
     axios(axiosConfig)
     .then(_a => {
-      console.log("Kirim notifikasi video baru !")
+      console.log("New Video Uploaded!")
     })
     .catch(err => {
-      console.error("Ada yang bermasalah !")
+      console.error("Catch Error !", err)
     })
-  } else {
-    console.log("Belum ada video baru")
   }
 }
 
@@ -77,6 +75,9 @@ async function checkRunning() {
   const time = env.TIMEOUT_LOOP
   if(isNaN(time)) {
     throw new Error("Harap format 'TIMEOUT_LOOP' berupa angka")
+  }
+  if(Number(time) < 0) {
+    throw new Error("Bad Timeing")
   }
   if(Number(time) < 2) {
     console.log("Terlalu cepat untuk melakukan permintaan !")
